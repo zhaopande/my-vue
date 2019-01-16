@@ -3,7 +3,6 @@
     <h1>about</h1>
     <p>{{aboutMsg}}</p>
     <router-link to="/index">index</router-link>
-    <router-link to="/bar">Go to Bar</router-link>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
