@@ -10,7 +10,8 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    
   },
   // 部署生产环境和开发环境下的URL。
   // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上
@@ -59,7 +60,10 @@ module.exports = {
       },
       postcss: {
         // options here will be passed to postcss-loader
-      }
+      },
+      sass: {
+        data: `@import "@/assets/utilscss.scss";`
+      },
     }
   },
   // 它支持webPack-dev-server的所有选项
