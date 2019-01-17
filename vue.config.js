@@ -52,7 +52,7 @@ module.exports = {
   //将选项传递给与CSS相关的加载器
   css: {
     modules: false,
-    extract: true,
+    extract: false,//是否将组件中的 CSS 提取至一个独立的 CSS 文件中 (而不是动态注入到 JavaScript 中的 inline 代码)。
     sourceMap: false,
     loaderOptions: {
       css: {
