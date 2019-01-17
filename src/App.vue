@@ -6,5 +6,18 @@
   </div>
 </template>
 
+<style>
+body {
+  margin: 0;
+}
+#app {
+  margin: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+</style>
+
 
 

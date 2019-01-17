@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import About from "@/components/about.vue"
 import HelloWorld from "@/components/HelloWorld.vue"
+import index from "@/index.vue"
 
 
 // 2. 定义路由
@@ -11,7 +12,8 @@ import HelloWorld from "@/components/HelloWorld.vue"
 // 或者，只是一个组件配置对象。
 // 我们晚点再讨论嵌套路由。
 const routes = [
-  { path: '/index', component: HelloWorld },
+  { path: '/index', component: index },
+  { path: '/helloworld', component: HelloWorld },
   { path: '/about', component: About },
   // 重定向
   {
