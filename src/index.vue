@@ -12,9 +12,8 @@
       <span>王小虎</span>
     </el-header>
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="200px" class="el-aside">
         <el-menu :default-openeds="['1', '3']">
-
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-message"></i>导航一
@@ -68,7 +67,6 @@
               <el-menu-item index="3-4-1">选项4-1</el-menu-item>
             </el-submenu>
           </el-submenu>
-
         </el-menu>
       </el-aside>
       <el-container>
@@ -99,8 +97,25 @@
 .el-aside {
   color: #333;
   text-align: center;
-  line-height: 200px;
   height: inherit;
+}
+
+.el-aside::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+.el-aside::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #535353;
+}
+.el-aside::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #ededed;
 }
 
 .el-main {
