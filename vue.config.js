@@ -1,18 +1,10 @@
-const path = require('path')
+const path = require('path');
+const debug = process.env.NODE_ENV !== 'production';
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 // vue.config.js
 module.exports = {
-  configureWebpack: {
-    resolve: {
-      extensions: ['.js', '.vue', '.json'],
-      alias: {
-        '@': resolve('src')
-      }
-    },
-    
-  },
   // 部署生产环境和开发环境下的URL。
   // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上
   //例如 https://www.my-app.com/。如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.my-app.com/my-app/，则设置 baseUrl 为 /my-app/。
@@ -45,7 +37,7 @@ module.exports = {
   *设置为在生成的HTML中true启用子资源完整性（SRI）<link rel="stylesheet">和<script>标记。如果您在CDN上托管构建的文件，最好启用此功能以获得额外的安全性。
   *，启用SRI时，由于Chrome中的错误导致资源被下载两次，因此会禁用预加载资源提示
   * */
- integrity: false,
+  integrity: false,
   //默认情况下，只有以文件结尾的文件*.module.[ext]才会被视为CSS模块。将此设置为true允许您.module放入文件名并将所有*.(css|scss|sass|less|styl(us)?)文件视为CSS模块。
   //extract true在生产中，false在开发中,是否将组件中的CSS提取到独立的CSS文件中（而不是在JavaScript中内联并动态注入,在开发模式下禁用提取CSS，因为它与CSS热重新加载不兼容
   //sourceMap是否为CSS启用源映射。将此设置为true可能会影响构建性能
@@ -85,6 +77,24 @@ module.exports = {
         target: "<other_url>"
       }
     }
-  }
+  },
 
+  //webpack相关配置 该对象将会被 webpack-merge 合并入最终的 webpack 配置
+  configureWebpack: {
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js',
+        'router': "@/router", //@ 在/node_modules/@vue/cli-service/lib/config/base.js中已经配置过了
+      }
+    },
+  },
+  // webpack链接API，用于生成和修改webapck配置，https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
+  chainWebpack: config => {
+    if (debug) {
+      // 本地开发配置
+    } else {
+      // 生产开发配置
+    }
+  },
 }

@@ -9,7 +9,7 @@
           <el-dropdown-item>删除</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <span>王小虎</span>
+      <span v-on:click="great">王小虎</span>
     </el-header>
     <el-container>
       <el-aside width="200px" class="el-aside">
@@ -82,6 +82,29 @@
     </el-container>
   </el-container>
 </template>
+
+
+<script>
+export default {
+  data: function () {
+    const item = {
+      date: "2016-05-02",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1518 弄"
+    };
+    return {
+      tableData: Array(2).fill(item)
+    };
+  },
+  // 在 `methods` 对象中定义方法
+  methods: {
+    great: function(event) {
+      console.log(event);
+    }
+  }
+};
+</script>
+
 <style  type="text/scss" lang="scss" scoped>
 .el-header,
 .el-footer {
@@ -140,18 +163,3 @@
   line-height: 320px;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
-    return {
-      tableData: Array(20).fill(item)
-    };
-  }
-};
-</script>
