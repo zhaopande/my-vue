@@ -12,9 +12,23 @@ import index from "@/index.vue"
 // 或者，只是一个组件配置对象。
 // 我们晚点再讨论嵌套路由。
 const routes = [
-  { path: '/index', component: index },
-  { path: '/helloworld', component: HelloWorld },
-  { path: '/about', component: About },
+  {
+    path: '/index', 
+    component: index,
+    children: [
+      {
+        path: '/index/HelloWorld',
+        name: 'HelloWorld',
+        component: HelloWorld,
+      },
+      {
+        path: '/index/about',
+        name: 'About',
+        component: About
+      },
+    ]
+  },
+
   // 重定向
   {
     path: '/',

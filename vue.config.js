@@ -20,7 +20,7 @@ module.exports = {
   filenameHashing: false,
 
   //lintOnSave：{ type:Boolean default:true } 问你是否使用eslint,设置为时true，eslint-loader将发出lint错误作为警告。默认情况下，警告仅记录到终端，并且不会使编译失败。
-  lintOnSave: true,
+  lintOnSave: false,
   //如果你想要在生产构建时禁用 eslint-loader，你可以用如下配置
   //lintOnSave: process.env.NODE_ENV !== 'production',
 
