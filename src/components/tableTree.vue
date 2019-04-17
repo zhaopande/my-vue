@@ -46,6 +46,7 @@
 </template>
 <script>
 import MSDataTransfer from "./dataTranslate.js";
+import { constants } from 'crypto';
 export default {
   name: "tree-grid",
   props: {
@@ -93,6 +94,7 @@ export default {
   computed: {
     data() {
       console.log(this.dataSource);
+      console.log(this.columns);
       if (this.treeStructure) {
         let data = MSDataTransfer.treeToArray(
           this.dataSource,
@@ -108,10 +110,12 @@ export default {
   },
   methods: {
     // -----------------------
-    showTr(rows, index) {
+    showTr(rows, index) { //决定是否全部展开
+    console.log(rows);
       let row = rows.row;
-      let show = row._parent
-        ? row._parent._expanded && row._parent._show
+      let show = row._parent  //如果有父级且父级展示
+        ? row._parent._expanded 
+        && row._parent._show
         : true;
       row._show = show;
       return show ? "" : "display:none;";

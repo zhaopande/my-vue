@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table-tree :columns="columns" :defaultExpandAll="false" :data-source="menuData"></table-tree>
+    <table-tree :columns="columns" :treeStructure="true" :defaultExpandAll="true" :data-source="menuData"></table-tree>
   </div>
 </template>
 <script>

@@ -20,8 +20,12 @@ DataTransfer.treeToArray = function (data, parent, level, expandedAll) {
     }
     Vue.set(record, '_level', _level)
     tmp.push(record)
-    if (record.children && record.children.length > 0) {
-      let children = DataTransfer.treeToArray(record.children, record, _level, expandedAll)
+    if (record.children && record.children.length > 0) { //_level 如果有下一级则标记层级，为首列间隔计数
+      let children = DataTransfer.treeToArray(record.children, record, _level, expandedAll);
+      // eslint-disable-next-line no-console
+      console.log(children);
+      // eslint-disable-next-line no-console
+      console.log(tmp);
       tmp = tmp.concat(children)
     }
   })
