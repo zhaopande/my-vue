@@ -102,7 +102,6 @@ export default {
           null,
           this.defaultExpandAll
         );
-        console.log(data);
         return data;
       }
       return this.dataSource;
@@ -111,7 +110,6 @@ export default {
   methods: {
     // -----------------------
     showTr(rows, index) { //决定是否全部展开
-    console.log(rows);
       let row = rows.row;
       let show = row._parent  //如果有父级且父级展示
         ? row._parent._expanded 

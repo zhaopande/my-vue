@@ -17,7 +17,7 @@
         <el-menu
           text-color="#000"
           active-text-color="#409eff"
-          :default-active="$route.fullPath"
+          :default-active="defaultActive"
           :router="true"
         >
           <el-submenu index="1">
@@ -25,10 +25,8 @@
               <i class="el-icon-message"></i>导航一
             </template>
             <!-- <el-menu-item-group> -->
-            <!-- <el-menu-item index="1-1" @click="linkTo({name:'HelloWorld',query:{index:'1-1'}})">选项1</el-menu-item>
-            <el-menu-item index="1-2" @click="linkTo({name:'About',query:{index:'1-2'}})">选项2</el-menu-item> -->
-            <el-menu-item index="/index/HelloWorld?type=123">选项1</el-menu-item>
-            <el-menu-item index="/index/about?type=456">选项2</el-menu-item>
+            <el-menu-item index="1-1" @click="linkTo({name:'HelloWorld',query:{index:'1-1'}})">选项1</el-menu-item>
+            <el-menu-item index="1-2" @click="linkTo({name:'About',query:{index:'1-2'}})">选项2</el-menu-item>
             <!-- </el-menu-item-group> -->
             <el-menu-item-group>
               <el-menu-item index="1-3">选项3</el-menu-item>
@@ -107,7 +105,7 @@ export default {
   },
   mounted() {
     console.log(this.$route);
-    // this.handleSelectMenuItem(this.$route.query.index);
+    this.handleSelectMenuItem(this.$route.query.index);
   },
   // 在 `methods` 对象中定义方法
   methods: {
@@ -123,10 +121,10 @@ export default {
     }
   },
   watch: {
-    $route(val) {
-      console.log(val);
+    // $route(val) {
+    //   console.log(val);
     //   this.handleSelectMenuItem(val.query.index);
-    }
+    // }
   }
 };
 </script>
