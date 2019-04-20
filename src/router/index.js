@@ -26,7 +26,13 @@ const routes = [
         name: 'About',
         component: About
       },
-    ]
+    ],
+    meta: {
+      title: 'dashboard',
+      icon: 'dashboard',
+      noCache: true,
+      affix: true
+  }
   },
 
   // 重定向

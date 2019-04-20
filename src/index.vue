@@ -19,15 +19,12 @@
               <i class="el-icon-message"></i>导航一
             </template>
             <!-- <el-menu-item-group> -->
-              <el-menu-item index="1-1">
-                <router-link
-                  :to="{ name: 'HelloWorld', params: { userId: 123 }}"
-                  class="nav-item"
-                >选项1</router-link>
-              </el-menu-item>
-              <el-menu-item index="1-2">
-                <router-link :to="{ name: 'About', params: { userId: 123 }}" class="nav-item">选项2</router-link>
-              </el-menu-item>
+            <el-menu-item index="1-1">
+              <router-link :to="{ name: 'HelloWorld', params: { userId: 123 }}" class="nav-item">选项1</router-link>
+            </el-menu-item>
+            <el-menu-item index="1-2">
+              <router-link :to="{ name: 'About', params: { userId: 123 }}" class="nav-item">选项2</router-link>
+            </el-menu-item>
             <!-- </el-menu-item-group> -->
             <el-menu-item-group>
               <el-menu-item index="1-3">选项3</el-menu-item>
@@ -46,7 +43,7 @@
               <el-menu-item index="2-1">选项1</el-menu-item>
               <el-menu-item index="2-2">选项2</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group >
+            <el-menu-item-group>
               <el-menu-item index="2-3">选项3</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="2-4">
@@ -74,13 +71,13 @@
         </el-menu>
       </el-aside>
       <el-container>
+        <tags-view/>
         <el-main>
-          <!-- <el-table :data="tableData">
-            <el-table-column prop="date" label="日期" width="140"></el-table-column>
-            <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-            <el-table-column prop="address" label="地址"></el-table-column>
-          </el-table>-->
-          <router-view/>
+          <transition name="fade-transform" mode="out-in">
+            <keep-alive :include="cachedViews">
+              <router-view :key="key"/>
+            </keep-alive>
+          </transition>
         </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
@@ -88,9 +85,20 @@
   </el-container>
 </template>
 
-
 <script>
+import TagsView from "@/components/TagsView";
 export default {
+  components: {
+    TagsView
+  },
+    computed: {
+    cachedViews() {
+      return this.$store.state.tagsView.cachedViews
+    },
+    key() {
+      return this.$route.fullPath
+    }
+  },
   data: function() {
     const item = {
       date: "2016-05-02",
