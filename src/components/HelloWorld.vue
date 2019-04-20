@@ -1,6 +1,14 @@
 <template>
   <div>
-    <table-tree :columns="columns" :treeStructure="true" :defaultExpandAll="true" :data-source="menuData"></table-tree>
+    <router-link :to="{name:'About'}">
+      <el-button>123</el-button>
+    </router-link>
+    <table-tree
+      :columns="columns"
+      :treeStructure="true"
+      :defaultExpandAll="true"
+      :data-source="menuData"
+    ></table-tree>
   </div>
 </template>
 <script>

@@ -17,7 +17,7 @@
         <el-menu
           text-color="#000"
           active-text-color="#409eff"
-          :default-active="$route.fullPath"
+          :default-active="defaultActive"
           :router="true"
         >
           <el-submenu index="1">
@@ -25,10 +25,8 @@
               <i class="el-icon-message"></i>导航一
             </template>
             <!-- <el-menu-item-group> -->
-            <!-- <el-menu-item index="1-1" @click="linkTo({name:'HelloWorld',query:{index:'1-1'}})">选项1</el-menu-item>
-            <el-menu-item index="1-2" @click="linkTo({name:'About',query:{index:'1-2'}})">选项2</el-menu-item> -->
-            <el-menu-item index="/index/HelloWorld">选项1</el-menu-item>
-            <el-menu-item index="/index/about">选项2</el-menu-item>
+            <el-menu-item index="1-1" @click="linkTo({name:'HelloWorld',query:{index:'1-1'}})">选项1</el-menu-item>
+            <el-menu-item index="1-2" @click="linkTo({name:'About',query:{index:'1-2'}})">选项2</el-menu-item>
             <!-- </el-menu-item-group> -->
             <el-menu-item-group>
               <el-menu-item index="1-3">选项3</el-menu-item>
@@ -75,13 +73,13 @@
         </el-menu>
       </el-aside>
       <el-container>
-        <tags-view/>
         <el-main>
-          <transition name="fade-transform" mode="out-in">
-            <keep-alive :include="cachedViews">
-              <router-view :key="key"/>
-            </keep-alive>
-          </transition>
+          <!-- <el-table :data="tableData">
+            <el-table-column prop="date" label="日期" width="140"></el-table-column>
+            <el-table-column prop="name" label="姓名" width="120"></el-table-column>
+            <el-table-column prop="address" label="地址"></el-table-column>
+          </el-table>-->
+          <router-view/>
         </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
@@ -89,20 +87,9 @@
   </el-container>
 </template>
 
+
 <script>
-import TagsView from "@/components/TagsView";
 export default {
-  components: {
-    TagsView
-  },
-    computed: {
-    cachedViews() {
-      return this.$store.state.tagsView.cachedViews
-    },
-    key() {
-      return this.$route.fullPath
-    }
-  },
   data: function() {
     // let defaultActive="";
     const item = {
@@ -118,7 +105,7 @@ export default {
   },
   mounted() {
     console.log(this.$route);
-    // this.handleSelectMenuItem(this.$route.query.index);
+    this.handleSelectMenuItem(this.$route.query.index);
   },
   // 在 `methods` 对象中定义方法
   methods: {
@@ -134,10 +121,10 @@ export default {
     }
   },
   watch: {
-    $route(val) {
-      console.log(val);
+    // $route(val) {
+    //   console.log(val);
     //   this.handleSelectMenuItem(val.query.index);
-    }
+    // }
   }
 };
 </script>

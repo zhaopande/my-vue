@@ -20,11 +20,13 @@ const routes = [
         path: '/index/HelloWorld',
         name: 'HelloWorld',
         component: HelloWorld,
+        props: (route) => ({ query: route.query.type })
       },
       {
         path: '/index/about',
         name: 'About',
-        component: About
+        component: About,
+        props: (route) => ({ query: route.query.type })
       },
     ],
     meta: {
