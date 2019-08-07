@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-Vue.use(VueRouter)
 import About from "@/components/about.vue"
 import HelloWorld from "@/components/HelloWorld.vue"
 import index from "@/index.vue"
+import ChooseEntrance from "@/pages/chooseEntrance"
 
+Vue.use(VueRouter)
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -13,7 +14,7 @@ import index from "@/index.vue"
 // 我们晚点再讨论嵌套路由。
 const routes = [
   {
-    path: '/index', 
+    path: '/index',
     component: index,
     children: [
       {
@@ -28,13 +29,19 @@ const routes = [
         component: About,
         props: (route) => ({ query: route.query.type })
       },
+      {
+        path: '/chooseEntrance',
+        name: 'chooseEntrance',
+        component: ChooseEntrance,
+        props: (route) => ({ query: route.query.type })
+      },
     ],
     meta: {
       title: 'dashboard',
       icon: 'dashboard',
       noCache: true,
       affix: true
-  }
+    }
   },
 
   // 重定向
