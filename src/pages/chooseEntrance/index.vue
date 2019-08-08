@@ -4,14 +4,36 @@
       <button class="left-btn pa" @click="move(singleItemWidth, 1,speed)">《</button>
       <button class="right-btn pa" @click="move(singleItemWidth, -1,speed)">》</button>
       <div class="zp-carousel-box" ref="zpCarousel" :style="containerStyle">
+        <!-- <div class="zp-carousel-item" :style="itemStyle">{{imgArr[imgArr.length-3]}}</div>
+        <div class="zp-carousel-item" :style="itemStyle">{{imgArr[imgArr.length-2]}}</div>
         <div class="zp-carousel-item" :style="itemStyle">{{imgArr[imgArr.length-1]}}</div>
+        :class="{'carousel-item-active':getLeft(index)}"-->
         <div
           class="zp-carousel-item"
+          :class="{'carousel-item-active':isActiveLeft(index)}"
+          :style="itemStyle"
+          v-for="(item,index) in dataEndThreeArr"
+          :key="random+index+item*2"
+          :data-index="imgArr.length-(dataEndThreeArr.length-index-1)"
+        >{{item}}</div>
+
+        <div
+          class="zp-carousel-item"
+          :class="{'carousel-item-active':currentIndex==index+1}"
           :style="itemStyle"
           v-for="(item,index) in imgArr"
           :key="index"
+          :data-index="index+1"
         >{{item}}</div>
-        <div class="zp-carousel-item" :style="itemStyle">{{imgArr[0]}}</div>
+        <div
+          class="zp-carousel-item"
+          :class="{'carousel-item-active':
+          (currentIndex==(index+1))}"
+          :style="itemStyle"
+          v-for="(item,index) in dataBeginThreeArr"
+          :key="random+index+item"
+          :data-index="index+1"
+        >{{item}}</div>
       </div>
     </div>
   </div>
@@ -25,12 +47,12 @@ export default {
       imgArr: [1, 2, 3, 4, 5],
       zpCarousel: null,
       singleItemWidth: 300,
-      currentIndex: 1, //当前选中的下标
-      distance: -300, //初始化显示第一条
-      speed: 30,
+      currentIndex: 2, //当前选中的下标
+      distance: -900, //初始化显示第一条
+      speed: 5,
       totalLength: 0,
       transitionEnd: true, //是否滑动结束
-      scale:1,//缩放倍数
+      scale: 0.8, //缩放倍数
     };
   },
 
@@ -40,25 +62,38 @@ export default {
       return {
         transform: `translateX(${this.distance}px)`,
         width: `${this.singleItemWidth * this.imgArr.length + //总宽度+前后
-          this.singleItemWidth * 2}px`
+          this.singleItemWidth * 6}px`
       };
     },
+    // 单个样式
     itemStyle() {
       return {
         width: `${this.singleItemWidth}px`,
         transform: `scale(${this.scale})`
       };
     },
-    windowWidth() { //轮播窗口
+    // 窗口大小
+    windowWidth() {
+      //轮播窗口
       return {
-        width: `${this.singleItemWidth}px`
+        width: `${this.singleItemWidth * 3}px`
       };
+    },
+    //数据结束后三位
+    dataEndThreeArr() {
+      return this.imgArr.slice(this.imgArr.length - 3);
+    },
+    //数据开始前三位
+    dataBeginThreeArr() {
+      return this.imgArr.slice(0, 3);
+    },
+    //随机数
+    random() {
+      return Math.random() * 100;
     }
   },
   mounted() {
     this.totalLength = this.imgArr.length * this.singleItemWidth;
-
-    console.log(this.distance);
   },
   methods: {
     /**
@@ -80,7 +115,8 @@ export default {
       this.createAnimate(destination, direction, speed);
     },
     createAnimate(des, direc, speed) {
-      console.log(this.totalLength);
+      // console.log(this.totalLength);
+      console.log(this.distance);
       if (this.temp) {
         window.clearInterval(this.temp);
         this.temp = null;
@@ -95,10 +131,18 @@ export default {
           this.transitionEnd = true;
           window.clearInterval(this.temp);
           this.distance = des;
-          if (des < -this.totalLength) this.distance = -(this.singleItemWidth); //-
-          if (des > -(this.singleItemWidth)) this.distance = -this.totalLength; //+
+          if (des < -this.totalLength) this.distance = -this.singleItemWidth; //-
+          if (des > -this.singleItemWidth) this.distance = -this.totalLength; //+
         }
-      }, 20);
+      }, 5);
+    },
+
+    // 是否是左边选中
+    isActiveLeft: function(index) {
+      return (
+        this.currentIndex ===
+        this.imgArr.length - (this.dataEndThreeArr.length - index - 1)
+      );
     }
   }
 };

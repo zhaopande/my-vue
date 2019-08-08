@@ -5,6 +5,7 @@ import App from '@/App.vue'
 import store from './store'
 
 import '@/styles/index.scss' // global css
+import "./styles/less/base.less"
 // 引入路由
 import router from "router/index.js"
 Vue.use(ElementUI);

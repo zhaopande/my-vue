@@ -1,0 +1,889 @@
+@import "./base.less";
+
+// 公共颜色
+.green {
+  color: green
+}
+
+.red {
+  color: red
+}
+
+.yellow {
+  color: yellow
+}
+
+.warningColor {
+  color: #F78989
+}
+
+.bgc39475d {
+  background: #39475d;
+}
+
+.bgc3d4f6a {
+  background: #3d4f6a;
+}
+
+.zjc_ellipsis {
+  //超出隐藏显示...，只对具有宽度的块级元素生效
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.c3284fd {
+  color: #3284fd;
+}
+
+;
+
+//加载loading
+.el-loading-mask {
+  z-index: 2140 !important;
+}
+
+//隐藏上传按钮
+.upload-demo-nochoose {
+  .el-upload--picture-card {
+    display: none;
+  }
+}
+
+// 警告行颜色
+.con_Warm {
+  color: #F74447;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  width: 100%;
+  margin-left: -10px;
+  background-color: rgba(255, 0, 0, .1);
+}
+
+//竖条条
+.vertical {
+  background-color: @primaryColor;
+  height: 20px;
+  width: 5px;
+}
+
+@primaryColor: #1279ff;
+@whiteBg: rgb(239, 244, 247);
+@whiteNavBg: #005180;
+@blackMainNavBg: #303B4D;
+@blackBg: #2F333E;
+
+.black {
+  @import "./themeColor/blackTheme.less";
+
+  .not-pass {
+    color: @notPass
+  }
+
+  .to-be-audited {
+    color: @toBeAudited
+  }
+
+  .pass {
+    color: @pass
+  }
+
+  .el-input-group__append button.el-button {
+    margin: -10px -20px;
+  }
+
+  .el-input__inner {
+    background-color: @blackMainNavBg;
+    color: @C0E6FD
+  }
+
+  .primaryColor {
+    color: @primaryColor
+  }
+
+  .text-c {
+    color: @889cc1
+  }
+
+  .page-content {
+    padding: 20px 10px;
+
+    .container {
+      padding: 20px 10px;
+      background-color: @303B4D;
+
+      .el-form-item {
+
+        &__label,
+        &__content {
+          color: @formLabel
+        }
+      }
+
+      .el-pagination.is-background .btn-prev,
+      .el-pagination.is-background .btn-next,
+      .el-pagination.is-background .el-pager li {
+        background-color: transparent;
+
+        &:not(.disabled):hover {
+          background-color: #1279ff;
+          color: white;
+        }
+      }
+
+      .el-pagination.is-background .el-pager li:not(.disabled).active {
+        background-color: #1279ff;
+        color: #fff;
+      }
+    }
+  }
+
+  //table行颜色
+  .warning-row {
+    background-color: #303B4D !important;
+  }
+
+  .success-row {
+    background-color: #394762 !important;
+  }
+
+  .el-loading-mask {
+    background-color: #394762 !important;
+  }
+
+  .el-table,
+  .el-table__expanded-cell {
+    background-color: #303B4D !important;
+  }
+
+  a {
+    color: #1279ff;
+  }
+
+  //面包屑
+  .el-breadcrumb__inner {
+    cursor: pointer;
+  }
+
+  .el-breadcrumb__inner.is-link,
+  .el-breadcrumb__inner a {
+    color: #889cc1 !important;
+    font-weight: normal !important;
+  }
+
+  //分页
+  .el-pagination.is-background .btn-prev,
+  .el-pagination.is-background .btn-next,
+  .el-pagination.is-background .el-pager li {
+    background-color: transparent;
+
+    &:not(.disabled):hover {
+      background-color: #1279ff;
+      color: white;
+    }
+  }
+
+  .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #1279ff;
+    color: #fff;
+  }
+
+  // 时间区间选择
+  .el-input-group__append {
+    color: #fff;
+    background-color: @primaryColor;
+  }
+
+  .el-range-editor {
+    .el-range-separator {
+      color: @inputColor;
+      display: inline-block;
+      width: 25px;
+    }
+
+    .el-range-input {
+      background-color: @303B4D
+    }
+
+    .el-range__icon,
+    .el-range-separator,
+    .el-range__close-icon {
+      line-height: 22px;
+    }
+  }
+
+
+  // 弹窗
+  .addUserForm {
+    background-color: @303B4D;
+
+    .el-dialog__title {
+      color: #889cc1;
+    }
+
+    .form-item-input {
+      width: 300px
+    }
+
+    .date-picker {
+      width: 195px;
+    }
+
+    .handleForm-btn {
+      margin-left: 150px;
+
+      .addUserForm-btn {
+        width: 90px;
+        height: 30px;
+        line-height: 0;
+        margin-left: 30px;
+      }
+    }
+  }
+
+  //列表公共样式
+  .userList,
+  .page-content {
+    padding: 20px 10px;
+
+    .userList_title {
+      color: #1279ff;
+      font-size: 20px;
+      height: 60px;
+      line-height: 40px;
+    }
+
+    .container {
+      background-color: @303B4D;
+      padding: 20px 10px;
+
+      .table-top {
+        .addUserBtn {
+          height: 30px;
+          line-height: 0px;
+        }
+
+        .projStatus_inp_title {
+          color: #889cc1;
+          line-height: 30px;
+        }
+
+        .sureBtn {
+          height: 30px;
+          line-height: 0px;
+        }
+
+        .fromDepartment-select {
+          input {
+            // border-radius: 0;
+          }
+        }
+
+        .searchInput {
+          width: 230px;
+
+          input {
+            // border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  //表单公共样式
+  .singleUserInfo {
+    padding: 20px 10px;
+
+    .userList_title {
+      color: #1279ff;
+      font-size: 20px;
+      height: 60px;
+      line-height: 40px;
+    }
+
+    .container {
+      background-color: #303B4D;
+      padding: 30px 100px;
+
+      .item-title {
+        height: 20px;
+        color: @C0E6FD;
+
+        .vertical {
+          background-color: @primaryColor;
+          height: 20px;
+          width: 5px;
+        }
+
+        .item-title-name {
+          line-height: 20px;
+        }
+      }
+
+      //修改用户信息
+      .info-item {
+        color: @C0E6FD;
+
+        .el-form-item__label {
+          color: @C0E6FD;
+        }
+
+        .info-item-title {
+          width: 100px;
+          line-height: 30px;
+        }
+
+        .info-item-input {
+          width: 280px;
+
+          input {
+            // border-radius: 2px;
+          }
+
+          ;
+
+          .el-input__inner {
+            //select中的input
+            height: 30px !important;
+          }
+        }
+
+        ;
+
+        .info-item-input-textarea {
+          max-width: 700px;
+
+          .el-textarea__inner {
+            min-height: 200px !important;
+            max-width: 700px;
+          }
+        }
+
+        // textarea 
+        .content-textarea {
+          min-height: 30px;
+          max-height: 400px;
+          padding: 5px 15px;
+          max-width: 700px;
+          overflow-y: auto;
+        }
+
+        // 无边框
+        .info-item-input-bn {
+          width: 280px;
+
+          input {
+            // border-radius: 2px;
+            border: none;
+          }
+
+          ;
+
+          .el-input__inner {
+            //select中的input
+            height: 30px !important;
+          }
+        }
+
+        ;
+
+        .ueditor-style {
+          width: 800px;
+        }
+
+        ;
+
+        .el-upload-list__item {
+          width: 30%;
+          display: inline-block; // margin-left: 30px;
+        }
+
+        // .el-upload-list__item:nth-child(even) {
+        //     margin-top: 10px;
+        // }
+
+        .el-form-item__error {
+          margin-left: 30px;
+        }
+      }
+
+      .updataUserInfoBtn {
+        width: 100px;
+        font-size: 14px; // margin-left: 190px;
+      }
+    }
+  }
+
+  //回复往来记录详情样式-table 布局
+  .zjc_replyRecordInfo {
+
+    //    奇数行背景色class. bgc39475d
+    //    偶数行背景色class 
+    .zjc_table {
+      margin: 0 auto;
+      border-collapse: collapse;
+
+      .zjc_table_tr {
+        height: 80px;
+        border: 1px solid #4a5973;
+      }
+
+      .zjc_table_title {
+        width: 160px;
+        color: #8495b9;
+        padding: 20px 40px;
+        text-align: center;
+        position: relative;
+      }
+
+      .zjc_table_content {
+        word-break: break-all;
+        width: 450px;
+        color: #bfe8ff;
+        padding: 20px;
+        position: relative;
+      }
+
+      .zjc_reply_bt {
+        background: #117aff;
+        color: #fff; // border-radius: 2px;
+        height: 20px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  // 审批情况卡片
+  .el-card {
+    background-color: @nav_bg_color;
+    color: #ccc;
+    width: 500px;
+
+    // max-height: 100px;
+    .approver-reasons {
+      width: 460px;
+      word-wrap: break-word;
+      line-height: 25px;
+
+      .toReportBtn {
+        padding: 2px 5px;
+        color: #fff
+      }
+    }
+  }
+}
+
+.white {
+  @import "./themeColor/whiteTheme.less";
+  overflow-y: auto;
+  .not-report {
+    color: @notReport
+  }
+  .not-pass {
+    color: @notPass
+  }
+
+  .to-be-audited {
+    color: @toBeAudited
+  }
+
+  .pass {
+    color: @pass
+  }
+
+  .el-input-group__append button.el-button {
+    margin: -10px -20px;
+  }
+
+  .el-breadcrumb__inner {
+    cursor: pointer;
+  }
+
+  .primaryColor {
+    color: @primaryColor
+  }
+
+  .el-breadcrumb__inner.is-link,
+  .el-breadcrumb__inner a {
+    color: #889cc1 !important;
+    font-weight: normal !important;
+    cursor: pointer;
+  }
+
+  .page-content {
+    padding: 20px 10px;
+
+    .container {
+      padding: 20px 10px;
+      min-width: 1200px;
+      background-color: #fff;
+
+      .el-input__inner, .el-textarea__inner{
+        color: #000;
+        background: rgb(239, 244, 248)
+      }
+
+      .el-form-item {
+
+        &__label,
+        &__content {
+          color: @formLabel
+        }
+      }
+    }
+  }
+
+  //分页
+  .el-pagination.is-background .btn-prev,
+  .el-pagination.is-background .btn-next,
+  .el-pagination.is-background .el-pager li {
+    background-color: transparent;
+
+    &:not(.disabled):hover {
+      background-color: #1279ff;
+      color: white;
+    }
+  }
+
+  .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #1279ff;
+    color: #fff;
+  }
+
+  .el-input.el-pagination__editor.is-in-pagination {
+    width: 50px !important;
+
+    .el-input__inner {
+      color: #000
+    }
+  }
+
+  // 时间区间选择
+  .el-input-group__append {
+    color: #fff;
+    background-color: @primaryColor;
+  }
+
+  .el-range-editor {
+    .el-range-separator {
+      color: @inputColor;
+      display: inline-block;
+      width: 25px;
+    }
+
+    .el-range-input {
+      background-color: #fff;
+    }
+
+    .el-range__icon,
+    .el-range-separator,
+    .el-range__close-icon {
+      line-height: 22px;
+    }
+  }
+
+  a {
+    color: #1279ff;
+  }
+
+  //table行颜色
+  .warning-row {
+    background-color: #fff;
+  }
+
+  .success-row {
+    background-color: @bodyBgColor  !important;
+  }
+
+  .success-row,
+  .el-table__header thead th {
+    background-color: rgb(245, 251, 251);
+  }
+  .el-dialog {
+    background-color: #fff
+  }
+  //列表公共样式
+  th,
+  td {
+    color: #000
+  }
+
+  .userList,
+  .page-content {
+    padding: 20px 10px;
+
+    .userList_title {
+      color: #1279ff;
+      font-size: 20px;
+      height: 60px;
+      line-height: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px 10px;
+      min-width: 1200px;
+      .table-top {
+        .addUserBtn {
+          height: 30px;
+          line-height: 0px;
+        }
+
+        .projStatus_inp_title {
+          color: #889cc1;
+          line-height: 30px;
+        }
+
+        .sureBtn {
+          height: 30px;
+          line-height: 0px;
+        }
+
+        .fromDepartment-select {
+          input {
+            // border-radius: 0;
+          }
+        }
+
+        .searchInput {
+          width: 230px;
+
+          input {
+            // border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  //表单公共样式
+  .singleUserInfo {
+    padding: 0px 10px;
+
+    .userList_title {
+      color: #1279ff;
+      font-size: 20px;
+      height: 60px;
+      line-height: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px 100px;
+
+      .item-title {
+        height: 20px;
+        color: @formLabel;
+
+        .vertical {
+          background-color: @primaryColor;
+          height: 20px;
+          width: 5px;
+        }
+
+        .item-title-name {
+          line-height: 20px;
+        }
+      }
+
+      //修改用户信息
+      .info-item {
+        color: #000;
+
+        .el-form-item__label {
+          color: #000;
+        }
+
+        .info-item-title {
+          width: 100px;
+          line-height: 30px;
+        }
+
+        .info-item-input {
+          width: 280px;
+
+          input {
+            // border-radius: 2px;
+          }
+
+          ;
+
+          .el-input__inner {
+            //select中的input
+            height: 30px !important;
+          }
+        }
+
+        ;
+
+        .info-item-input-textarea {
+          max-width: 700px;
+
+          .el-textarea__inner {
+            min-height: 200px !important;
+            max-width: 700px;
+          }
+        }
+
+        // textarea 
+        .content-textarea {
+          min-height: 30px;
+          max-height: 400px;
+          padding: 5px 15px;
+          max-width: 700px;
+          overflow-y: auto;
+        }
+
+        // 无边框
+        .info-item-input-bn {
+          width: 280px;
+
+          input {
+            // border-radius: 2px;
+            border: none;
+          }
+
+          ;
+
+          .el-input__inner {
+            //select中的input
+            height: 30px !important;
+          }
+        }
+
+        ;
+
+        .ueditor-style {
+          width: 800px;
+        }
+
+        ;
+
+        .el-upload-list__item {
+          width: 30%;
+          display: inline-block; // margin-left: 30px;
+        }
+
+        // .el-upload-list__item:nth-child(even) {
+        //     margin-top: 10px;
+        // }
+
+        .el-form-item__error {
+          margin-left: 30px;
+        }
+      }
+
+      .updataUserInfoBtn {
+        width: 100px;
+        font-size: 14px; // margin-left: 190px;
+      }
+    }
+  }
+
+  //回复往来记录详情样式-table 布局
+  .zjc_replyRecordInfo {
+
+    //    奇数行背景色class. bgc39475d
+    //    偶数行背景色class .bgc3d4f6a
+    .bgc39475d {
+      background-color: #d6e6ef
+    }
+
+    .bgc3d4f6a {
+      background-color: @bodyBgColor
+    }
+
+    .zjc_table {
+      margin: 0 auto;
+      border-collapse: collapse;
+
+      .zjc_table_tr {
+        height: 80px;
+        border: 1px solid #4a5973;
+      }
+
+      .zjc_table_title {
+        width: 160px;
+        color: #000;
+        padding: 20px 40px;
+        text-align: center;
+        position: relative;
+      }
+
+      .zjc_table_content {
+        word-break: break-all;
+        width: 450px;
+        color: #000;
+        padding: 20px;
+        position: relative;
+      }
+
+      .zjc_reply_bt {
+        background: #117aff;
+        color: #fff; // border-radius: 2px;
+        height: 20px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  // 弹窗
+  .addUserForm {
+    // background-color: #fff;
+    // .el-dialog {
+    width: 620px !important;
+    
+    .el-dialog__title {
+      color: #889cc1;
+    }
+
+    .form-item-input {
+      width: 300px
+    }
+
+    .date-picker {
+      width: 195px;
+    }
+
+    .handleForm-btn {
+      margin-left: 120px;
+
+      .addUserForm-btn {
+        width: 90px;
+        height: 30px;
+        line-height: 0;
+        margin-left: 30px;
+      }
+    }
+
+    // }
+  }
+
+
+  // 审批情况卡片
+  .el-card {
+    background-color: #fff;
+    color: #ccc;
+    width: 500px;
+
+    // max-height: 100px;
+    .approver-reasons {
+      width: 460px;
+      word-wrap: break-word;
+      line-height: 25px;
+
+      .toReportBtn {
+        padding: 2px 5px;
+      }
+    }
+  }
+}

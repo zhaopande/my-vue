@@ -11,7 +11,7 @@
       </el-dropdown>
       <span v-on:click="great">王小虎</span>
     </el-header>
-    <el-container>
+    <el-container >
       <el-aside width="200px" class="el-aside">
         <!-- :default-active="defaultActive" -->
         <el-menu
@@ -74,7 +74,7 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-container>
+      <el-container  style="display:flex;flex-direction: column;">
         <tags-view/>
         <el-main>
           <transition name="fade-transform" mode="out-in">
@@ -83,7 +83,7 @@
             </keep-alive>
           </transition>
         </el-main>
-        <el-footer>Footer</el-footer>
+        <!-- <el-footer>Footer</el-footer> -->
       </el-container>
     </el-container>
   </el-container>
