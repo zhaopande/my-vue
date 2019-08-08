@@ -3,7 +3,6 @@
   height: 200px;
 }
 .carousels .zp-carousel {
-  width: 300px;
   height: inherit;
   overflow: hidden;
   margin: 0 auto;
@@ -19,15 +18,15 @@
   z-index: 1;
 }
 .carousels .zp-carousel .zp-carousel-box {
-  width: 2100px;
   height: inherit;
   background: #ccc;
   overflow: hidden;
   margin: 0 auto;
+  display: flex;
 }
 .carousels .zp-carousel .zp-carousel-box .zp-carousel-item {
   height: inherit;
-  width: 300px;
   background: #afa5a5;
   display: inline-block;
+  text-align: center;
 }

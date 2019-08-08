@@ -1,12 +1,17 @@
 <template>
   <div class="carousels">
-    <div class="zp-carousel">
+    <div class="zp-carousel pr" :style="windowWidth">
       <button class="left-btn pa" @click="move(singleItemWidth, 1,speed)">《</button>
       <button class="right-btn pa" @click="move(singleItemWidth, -1,speed)">》</button>
       <div class="zp-carousel-box" ref="zpCarousel" :style="containerStyle">
-        <div class="zp-carousel-item">{{imgArr[imgArr.length-1]}}</div>
-        <div class="zp-carousel-item" v-for="(item,index) in imgArr" :key="index">{{item}}</div>
-        <div class="zp-carousel-item">{{imgArr[0]}}</div>
+        <div class="zp-carousel-item" :style="itemStyle">{{imgArr[imgArr.length-1]}}</div>
+        <div
+          class="zp-carousel-item"
+          :style="itemStyle"
+          v-for="(item,index) in imgArr"
+          :key="index"
+        >{{item}}</div>
+        <div class="zp-carousel-item" :style="itemStyle">{{imgArr[0]}}</div>
       </div>
     </div>
   </div>
@@ -23,30 +28,47 @@ export default {
       currentIndex: 1, //当前选中的下标
       distance: -300, //初始化显示第一条
       speed: 30,
-      totalLength: 0
+      totalLength: 0,
+      transitionEnd: true, //是否滑动结束
+      scale:1,//缩放倍数
     };
   },
 
   computed: {
     containerStyle() {
-      //这里用了计算属性，用transform来移动整个图片列表
+      //用transform来移动整个图片列表
       return {
-        transform: `translate3d(${this.distance}px, 0, 0)`
+        transform: `translateX(${this.distance}px)`,
+        width: `${this.singleItemWidth * this.imgArr.length + //总宽度+前后
+          this.singleItemWidth * 2}px`
+      };
+    },
+    itemStyle() {
+      return {
+        width: `${this.singleItemWidth}px`,
+        transform: `scale(${this.scale})`
+      };
+    },
+    windowWidth() { //轮播窗口
+      return {
+        width: `${this.singleItemWidth}px`
       };
     }
-    // totalLength() {
-    //   return this.imgArr.length * this.singleItemWidth;
-    // }
   },
   mounted() {
-    // this.zpCarousel = this.$refs["zpCarousel"];
-    // console.log(this.zpCarousel);
     this.totalLength = this.imgArr.length * this.singleItemWidth;
 
     console.log(this.distance);
   },
   methods: {
+    /**
+     * offset:距离
+     * direction:左/右
+     * speed 速度
+     */
     move(offset, direction, speed) {
+      if (!this.transitionEnd) return;
+      this.transitionEnd = false;
       direction === -1 ? this.currentIndex++ : this.currentIndex--;
       if (this.currentIndex > 5) this.currentIndex = 1;
       if (this.currentIndex < 1) this.currentIndex = 5;
@@ -54,7 +76,7 @@ export default {
       // this.distance += offset * direction;
       // if (this.distance < -1500) this.distance = -300;//大于第五张时回到第一张
       // if (this.distance > -300) this.distance = -1500;//滑动距离小于显示第一张时显示最后一张
-      const destination = this.distance + offset * direction;
+      const destination = this.distance + offset * direction; //左/右需要滑动到的地方
       this.createAnimate(destination, direction, speed);
     },
     createAnimate(des, direc, speed) {
@@ -73,8 +95,8 @@ export default {
           this.transitionEnd = true;
           window.clearInterval(this.temp);
           this.distance = des;
-          if (des < -this.totalLength) this.distance = -300;
-          if (des > -300) this.distance = -this.totalLength;
+          if (des < -this.totalLength) this.distance = -(this.singleItemWidth); //-
+          if (des > -(this.singleItemWidth)) this.distance = -this.totalLength; //+
         }
       }, 20);
     }
