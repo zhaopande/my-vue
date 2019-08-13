@@ -73,19 +73,19 @@ export default {
     return {
       sliders: [
         {
-          img: "./img/左右.png"
+          img: require("./img/leftright.png")
         },
         {
-          img: "./img/左右.png"
+          img: require("./img/leftright.png")
         },
         {
-          img: "./img/左右.png"
+          img: require("./img/leftright.png")
         },
         {
-          img: "./img/左右.png"
+          img: require("./img/leftright.png")
         },
         {
-          img: "./img/左右.png"
+          img:require("./img/leftright.png")
         }
       ],
       currentIndex: 1,

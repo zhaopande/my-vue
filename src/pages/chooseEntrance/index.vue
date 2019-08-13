@@ -12,7 +12,7 @@
         <div
           class="zp-carousel-item"
           :class="{'carousel-item-active':isActiveLeft(index)}"
-          :style="[itemStyle,isActivePrevOrNext(imgArr.length-(dataEndThreeArr.length-index-1),1)]"
+          :style="[itemStyle]"
           v-for="(item,index) in dataEndThreeArr"
           :key="random+index+item*2"
           :data-index="imgArr.length-(dataEndThreeArr.length-index-1)"
@@ -21,7 +21,7 @@
         <div
           class="zp-carousel-item"
           :class="{'carousel-item-active':currentIndex==index+1}"
-          :style="[itemStyle,isActivePrevOrNext(index+1)]"
+          :style="[itemStyle]"
           v-for="(item,index) in imgArr"
           :key="index"
           :data-index="index+1"
@@ -30,7 +30,7 @@
           class="zp-carousel-item"
           :class="{'carousel-item-active':
           (currentIndex==(index+1))}"
-          :style="[itemStyle,isActivePrevOrNext(index+1)]"
+          :style="[itemStyle]"
           v-for="(item,index) in dataBeginThreeArr"
           :key="random+index+item"
           :data-index="index+1"
@@ -78,14 +78,7 @@ export default {
           this.singleItemWidth * 6}px`
       };
     },
-    itemDislocationLengthPx() {
-      //错位长度px
-      return (
-        (this.singleItemWidth *
-          Number(this.itemDislocationLength.split("%")[0])) /
-        100
-      );
-    },
+
     // 单个样式
     itemStyle() {
       return {
@@ -94,23 +87,23 @@ export default {
       };
     },
     // 当前项上一个样式
-    prevItemStyle() {
-      return {
-        transform: `scale(${this.scale}) translateX(${this.itemDislocationLength})`
-      };
-    },
+    // prevItemStyle() {
+    //   return {
+    //     transform: `scale(${this.scale}) translateX(${this.itemDislocationLength})`
+    //   };
+    // },
     // 当前项下一个样式
-    nextItemStyle() {
-      return {
-        transform: `scale(${this.scale}) translateX(-${this.itemDislocationLength})`
-      };
-    },
+    // nextItemStyle() {
+    //   return {
+    //     transform: `scale(${this.scale}) translateX(-${this.itemDislocationLength})`
+    //   };
+    // },
     // 窗口大小
     windowWidth() {
       //轮播窗口宽度，要减去两边重合的宽度
       return {
-        width: `${this.singleItemWidth * 3 -
-          this.itemDislocationLengthPx * 2}px`
+        width: `${this.singleItemWidth * 3
+         }px`
       };
     },
     //数据结束后三位
@@ -130,10 +123,7 @@ export default {
     // 获取总长度
     this.totalLength = this.imgArr.length * this.singleItemWidth;
     // 根据默认显示项初始滑动位置
-    this.distance = -(
-      (this.currentIndex + 1) * this.singleItemWidth +
-      this.itemDislocationLengthPx
-    );
+    this.distance = -((this.currentIndex + 1) * this.singleItemWidth);
   },
   mounted() {
     this.isTimedLoop ? this.startTimedLoop() : "";
@@ -180,19 +170,19 @@ export default {
           (direc === -1 && des < this.distance) ||
           (direc === 1 && des > this.distance)
         ) {
+          console.log("--------------");
           this.distance += speed * direc;
         } else {
           cb(true);
           this.animateEnd = true;
           window.clearInterval(this.temp);
           this.distance = des;
-          console.log("--------------");
           console.log(this.distance);
 
-          let initDistance = this.totalLength + this.itemDislocationLengthPx; //最右边的位置
+          let initDistance = this.totalLength; //最右边的位置
           if (des < -initDistance)
             this.distance =
-              -this.singleItemWidth - this.itemDislocationLengthPx; //-滑动距离超过最右边就回到最左边位置
+              -this.singleItemWidth; //-滑动距离超过最右边就回到最左边位置
           if (des > -this.singleItemWidth) this.distance = -initDistance; //+滑动距离超过最左边就回到最右边位置
         }
       }, 5);
@@ -205,20 +195,7 @@ export default {
         this.imgArr.length - (this.dataEndThreeArr.length - index - 1)
       );
     },
-    // 是否是当前选中的前后
-    isActivePrevOrNext: function(index) {
-      // 排除当前项
-      if (index !== this.currentIndex) {
-        if (index < this.currentIndex && this.currentIndex - index == 1) {
-          //确认是相邻项
-          return this.prevItemStyle;
-        } else {
-          return this.currentIndex - index != -4
-            ? this.nextItemStyle
-            : this.prevItemStyle;
-        }
-      }
-    },
+
     // 开始循环
     startTimedLoop: function() {
       this.timedLoop = setInterval(() => {
@@ -263,19 +240,21 @@ export default {
           this.move(this.singleItemWidth, direction, this.speed, function(cb) {
             console.log(cb);
             if (cb) {
-              _this.createAnimate(
-                -(
-                  (index + 1) * _this.singleItemWidth +
-                  _this.itemDislocationLengthPx
-                ),
-                direction,
-                10,
-                function(cb) {
-                  cosnole.log("++++++++");
-                  cosnole.log(cb);
-                  cosnole.log(_this.distance);
-                }
-              );
+              _this.distance = -1260;
+              // _this.move(_this.singleItemWidth, direction, _this.speed, function(cb) {});
+              // _this.createAnimate(
+              //   -(
+              //     (index + 1) * _this.singleItemWidth +
+              //     _this.itemDislocationLengthPx
+              //   ),
+              //   direction,
+              //   10,
+              //   function(cb) {
+              //     cosnole.log("++++++++");
+              //     cosnole.log(cb);
+              //     cosnole.log(_this.distance);
+              //   }
+              // );
             }
           });
         } else {
