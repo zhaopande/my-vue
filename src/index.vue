@@ -29,13 +29,14 @@
             <el-menu-item index="1-2" @click="linkTo({name:'About',query:{index:'1-2'}})">选项2</el-menu-item> -->
             <el-menu-item index="/index/HelloWorld">选项1</el-menu-item>
             <el-menu-item index="/index/about">选项2</el-menu-item>
+            <el-menu-item index="/test">选项3</el-menu-item>
             <!-- </el-menu-item-group> -->
             <el-menu-item-group>
-              <el-menu-item index="/chooseEntrance">选项3</el-menu-item>
+              <el-menu-item index="/chooseEntrance">选项4</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+              <template slot="title">选项5</template>
+              <el-menu-item index="1-4-1">选项5-1</el-menu-item>
             </el-submenu>
           </el-submenu>
 

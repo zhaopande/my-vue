@@ -18,15 +18,39 @@
   z-index: 1;
 }
 .carousels .zp-carousel .zp-carousel-box {
-  height: inherit;
+  height: 90%;
   background: #ccc;
   overflow: hidden;
   margin: 0 auto;
   display: flex;
 }
 .carousels .zp-carousel .zp-carousel-box .zp-carousel-item {
-  height: inherit;
+  height: 100%;
   background: #afa5a5;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  transition: all .8s;
+}
+.carousels .zp-carousel .zp-carousel-box .carousel-item-active {
+  transform: scale(1) !important;
+  transition: all .6s;
+}
+.carousels .zp-carousel .carousel-all-dot {
+  width: 100%;
+  height: 10%;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.carousels .zp-carousel .carousel-all-dot .carousel-dot {
+  margin: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: #ccc;
 }
