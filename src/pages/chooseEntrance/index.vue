@@ -147,7 +147,7 @@ export default {
      * direction:左/右
      * speed 速度
      */
-    move(offset, direction, speed) {
+    move(offset, direction, speed, cbk) {
       if (!this.animateEnd) return;
       this.animateEnd = false;
       direction === -1 ? this.currentIndex++ : this.currentIndex--;
@@ -158,13 +158,16 @@ export default {
       // if (this.distance < -1500) this.distance = -300;//大于第五张时回到第一张
       // if (this.distance > -300) this.distance = -1500;//滑动距离小于显示第一张时显示最后一张
       const destination = this.distance + offset * direction; //左/右需要滑动到的地方
-      this.createAnimate(destination, direction, speed);
+      this.createAnimate(destination, direction, speed, function(cb) {
+        console.log(cb);
+        cbk ? cbk(cb) : "";
+      });
     },
     /**
      * des:滑动的位置
      * direction：1右 -1左
      */
-    createAnimate(des, direc, speed) {
+    createAnimate(des, direc, speed, cb) {
       console.log(des);
       console.log(this.distance);
       if (this.temp) {
@@ -172,15 +175,20 @@ export default {
         this.temp = null;
       }
       this.temp = window.setInterval(() => {
+        let cbs = cb;
         if (
           (direc === -1 && des < this.distance) ||
           (direc === 1 && des > this.distance)
         ) {
           this.distance += speed * direc;
         } else {
+          cb(true);
           this.animateEnd = true;
           window.clearInterval(this.temp);
           this.distance = des;
+          console.log("--------------");
+          console.log(this.distance);
+
           let initDistance = this.totalLength + this.itemDislocationLengthPx; //最右边的位置
           if (des < -initDistance)
             this.distance =
@@ -228,10 +236,10 @@ export default {
     //点击圆点跳转
     jumpDot: function(index) {
       const diff = index - this.currentIndex;
+      const _this = this;
       console.log(diff);
       if (diff == 0) return;
       const direction = diff >= 0 ? -1 : 1;
-      this.currentIndex = index;
       // this.createAnimate(
       //   -((index + 1) * this.singleItemWidth + this.itemDislocationLengthPx),
       //   direction,
@@ -240,8 +248,9 @@ export default {
       const jumpDistance =
         (index + 1) * this.singleItemWidth + this.itemDislocationLengthPx;
       if (diff > 0) {
+        this.currentIndex = index;
         console.log("next");
-        this.createAnimate(-jumpDistance, direction, 10);
+        this.createAnimate(-jumpDistance, direction, 10, function() {});
       } else if (diff < 0) {
         console.log("prev");
         // this.createAnimate(
@@ -249,9 +258,33 @@ export default {
         //   direction,
         //   10
         // );
-        for (let i = 0; i < diff; i++) {
-          this.move(this.singleItemWidth, direction, this.speed);
+        // for (let i = 0; i <= -diff; i++) {
+        if (this.currentIndex == 5 && diff <= -1) {
+          this.move(this.singleItemWidth, direction, this.speed, function(cb) {
+            console.log(cb);
+            if (cb) {
+              _this.createAnimate(
+                -(
+                  (index + 1) * _this.singleItemWidth +
+                  _this.itemDislocationLengthPx
+                ),
+                direction,
+                10,
+                function(cb) {
+                  cosnole.log("++++++++");
+                  cosnole.log(cb);
+                  cosnole.log(_this.distance);
+                }
+              );
+            }
+          });
+        } else {
+          this.currentIndex = index;
+
+          this.createAnimate(-jumpDistance, direction, 10, function() {});
         }
+
+        // }
       }
 
       // const offset = Math.abs(index - this.currentIndex) * this.distance;
