@@ -53,4 +53,12 @@
   height: 8px;
   border-radius: 8px;
   background: #ccc;
+  transition: all .6s;
+}
+.carousels .zp-carousel .carousel-all-dot .carousel-dot:hover {
+  background: #000;
+}
+.carousels .zp-carousel .carousel-all-dot .active-dot {
+  background: #000 !important;
+  transition: all .6s;
 }

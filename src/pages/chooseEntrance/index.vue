@@ -14,7 +14,7 @@
           :class="{'carousel-item-active':isActiveLeft(index)}"
           :style="[itemStyle]"
           v-for="(item,index) in dataEndThreeArr"
-          :key="random+index+item*2"
+          :key="getRandom+index*2+1"
           :data-index="imgArr.length-(dataEndThreeArr.length-index-1)"
         >{{item}}</div>
 
@@ -23,7 +23,7 @@
           :class="{'carousel-item-active':currentIndex==index+1}"
           :style="[itemStyle]"
           v-for="(item,index) in imgArr"
-          :key="index"
+          :key="index*index-3"
           :data-index="index+1"
         >{{item}}</div>
         <div
@@ -32,13 +32,14 @@
           (currentIndex==(index+1))}"
           :style="[itemStyle]"
           v-for="(item,index) in dataBeginThreeArr"
-          :key="random+index+item"
+          :key="getRandom*index+item+2"
           :data-index="index+1"
         >{{item}}</div>
       </div>
       <div class="carousel-all-dot pa">
         <div
           class="carousel-dot cp"
+          :class="{'active-dot':(currentIndex==index+1)}"
           v-for="(item,index) in imgArr.length"
           :key="index"
           @click="jumpDot(index+1)"
@@ -53,19 +54,22 @@ export default {
   name: "ZpCarousel",
   data() {
     return {
-      imgArr: [1, 2, 3, 4, 5],
+      imgArr: [1, 2, 3,4,5,6,7,8],
       zpCarousel: null,
       singleItemWidth: 300,
-      currentIndex: 1, //当前选中的下标
-      distance: 0, //初始化显示第一条
+      distance: 0, //动态显示位置
       speed: 5,
       totalLength: 0,
       animateEnd: true, //是否滑动结束
       scale: 0.85, //缩放倍数
       itemDislocationLength: "20%", //
       timedLoop: false, //定时循环
-      isTimedLoop: false, //是否开启定时循环
-      switchTime: 1000 //切换间隔
+      isTimedLoop: true, //是否开启定时循环
+      switchTime: 1000, //切换间隔
+      counts: 3, //显示数量
+      currentIndex: 1, //当前选中的下标
+      initDistance: 0, //起点位置
+      isPositive: true //是否正向循环
     };
   },
 
@@ -86,50 +90,39 @@ export default {
         transform: `scale(${this.scale})`
       };
     },
-    // 当前项上一个样式
-    // prevItemStyle() {
-    //   return {
-    //     transform: `scale(${this.scale}) translateX(${this.itemDislocationLength})`
-    //   };
-    // },
-    // 当前项下一个样式
-    // nextItemStyle() {
-    //   return {
-    //     transform: `scale(${this.scale}) translateX(-${this.itemDislocationLength})`
-    //   };
-    // },
     // 窗口大小
     windowWidth() {
       //轮播窗口宽度，要减去两边重合的宽度
       return {
-        width: `${this.singleItemWidth * 3
-         }px`
+        width: `${this.singleItemWidth * this.counts}px`
       };
     },
-    //数据结束后三位
+    //数据结束后几位(根据要显示的数量)
     dataEndThreeArr() {
-      return this.imgArr.slice(this.imgArr.length - 3);
+      return this.imgArr.slice(this.imgArr.length - this.counts);
     },
-    //数据开始前三位
+    //数据开始前几位(根据要显示的数量)
     dataBeginThreeArr() {
-      return this.imgArr.slice(0, 3);
+      return this.imgArr.slice(0, this.counts);
     },
     //随机数
-    random() {
-      return Math.random() * 100;
+    getRandom() {
+      return (Math.random() * 100).toFixed(0);
     }
   },
   created() {
     // 获取总长度
     this.totalLength = this.imgArr.length * this.singleItemWidth;
+    //显示数量不同，显示初始位置也不痛
+    this.initDistance = -this.singleItemWidth * (this.counts > 1 ? 2 : 1);
     // 根据默认显示项初始滑动位置
-    this.distance = -((this.currentIndex + 1) * this.singleItemWidth);
+    this.distance = this.initDistance;
   },
   mounted() {
     this.isTimedLoop ? this.startTimedLoop() : "";
   },
   destroyed() {
-    clearInterval(this.timedLoop);
+    this.timedLoop ? clearInterval(this.timedLoop) : "";
   },
   methods: {
     /**
@@ -137,53 +130,50 @@ export default {
      * direction:左/右
      * speed 速度
      */
-    move(offset, direction, speed, cbk) {
+    move(offset, direction, speed) {
       if (!this.animateEnd) return;
       this.animateEnd = false;
-      direction === -1 ? this.currentIndex++ : this.currentIndex--;
-      if (this.currentIndex > 5) this.currentIndex = 1;
-      if (this.currentIndex < 1) this.currentIndex = 5;
+      // direction === -1 ? this.currentIndex++ : this.currentIndex--;
+      // 更新当前项的位置
+      direction === -1
+        ? (this.currentIndex += offset / this.singleItemWidth)
+        : (this.currentIndex -= offset / this.singleItemWidth);
+      if (this.currentIndex > this.imgArr.length) this.currentIndex = 1;
+      if (this.currentIndex < 1) this.currentIndex = this.imgArr.length;
       console.log(this.currentIndex);
       // this.distance += offset * direction;
       // if (this.distance < -1500) this.distance = -300;//大于第五张时回到第一张
       // if (this.distance > -300) this.distance = -1500;//滑动距离小于显示第一张时显示最后一张
       const destination = this.distance + offset * direction; //左/右需要滑动到的地方
-      this.createAnimate(destination, direction, speed, function(cb) {
-        console.log(cb);
-        cbk ? cbk(cb) : "";
-      });
+      this.createAnimate(destination, direction, speed);
     },
     /**
      * des:滑动的位置
      * direction：1右 -1左
      */
-    createAnimate(des, direc, speed, cb) {
-      console.log(des);
-      console.log(this.distance);
+    createAnimate(des, direc, speed) {
       if (this.temp) {
         window.clearInterval(this.temp);
         this.temp = null;
       }
       this.temp = window.setInterval(() => {
-        let cbs = cb;
         if (
           (direc === -1 && des < this.distance) ||
           (direc === 1 && des > this.distance)
         ) {
-          console.log("--------------");
           this.distance += speed * direc;
         } else {
-          cb(true);
           this.animateEnd = true;
           window.clearInterval(this.temp);
           this.distance = des;
-          console.log(this.distance);
-
-          let initDistance = this.totalLength; //最右边的位置
-          if (des < -initDistance)
-            this.distance =
-              -this.singleItemWidth; //-滑动距离超过最右边就回到最左边位置
-          if (des > -this.singleItemWidth) this.distance = -initDistance; //+滑动距离超过最左边就回到最右边位置
+          //-滑动距离超过最右边就回到最左边位置(当显示3页的时候之所以要多减一页，是因为一页和3页开始显示的位置不同，在-1500的时候选中的是5，
+          //如果回到起始位置，选中的依然是5，所以为了衔接多往后显示一页)
+          if (
+            des <
+            -this.totalLength - (this.counts == 3 ? this.singleItemWidth : 0)
+          )
+            this.distance = this.initDistance;
+          if (des > -this.singleItemWidth) this.distance = -this.totalLength; //+滑动距离超过最左边就回到最右边位置
         }
       }, 5);
     },
@@ -199,7 +189,7 @@ export default {
     // 开始循环
     startTimedLoop: function() {
       this.timedLoop = setInterval(() => {
-        this.move(this.singleItemWidth, -1, this.speed);
+        this.move(this.singleItemWidth, this.isPositive ? -1 : 1, this.speed);
       }, this.switchTime);
     },
     stopTimedLoop: function() {
@@ -212,66 +202,13 @@ export default {
     },
     //点击圆点跳转
     jumpDot: function(index) {
+      console.log(index);
       const diff = index - this.currentIndex;
-      const _this = this;
-      console.log(diff);
-      if (diff == 0) return;
-      const direction = diff >= 0 ? -1 : 1;
-      // this.createAnimate(
-      //   -((index + 1) * this.singleItemWidth + this.itemDislocationLengthPx),
-      //   direction,
-      //   10
-      // );
-      const jumpDistance =
-        (index + 1) * this.singleItemWidth + this.itemDislocationLengthPx;
-      if (diff > 0) {
-        this.currentIndex = index;
-        console.log("next");
-        this.createAnimate(-jumpDistance, direction, 10, function() {});
-      } else if (diff < 0) {
-        console.log("prev");
-        // this.createAnimate(
-        //   -((index + 1) * this.singleItemWidth + this.itemDislocationLengthPx),
-        //   direction,
-        //   10
-        // );
-        // for (let i = 0; i <= -diff; i++) {
-        if (this.currentIndex == 5 && diff <= -1) {
-          this.move(this.singleItemWidth, direction, this.speed, function(cb) {
-            console.log(cb);
-            if (cb) {
-              _this.distance = -1260;
-              // _this.move(_this.singleItemWidth, direction, _this.speed, function(cb) {});
-              // _this.createAnimate(
-              //   -(
-              //     (index + 1) * _this.singleItemWidth +
-              //     _this.itemDislocationLengthPx
-              //   ),
-              //   direction,
-              //   10,
-              //   function(cb) {
-              //     cosnole.log("++++++++");
-              //     cosnole.log(cb);
-              //     cosnole.log(_this.distance);
-              //   }
-              // );
-            }
-          });
-        } else {
-          this.currentIndex = index;
-
-          this.createAnimate(-jumpDistance, direction, 10, function() {});
-        }
-
-        // }
-      }
-
-      // const offset = Math.abs(index - this.currentIndex) * this.distance;
-      // const jumpSpeed =
-      //   Math.abs(index - this.currentIndex) === 0
-      //     ? this.speed
-      //     : Math.abs(index - this.currentIndex) * this.speed;
-      // this.move(offset, direction, jumpSpeed);
+      // if (diff == 0) return;
+      const direction = diff > 0 ? -1 : 1;
+      const offset = Math.abs(diff) * this.singleItemWidth;
+      const jumpSpeed = Math.abs(index - this.currentIndex) * this.speed; //当前项和要跳转项相隔越远速度愉快
+      this.move(offset, direction, jumpSpeed);
     }
   }
 };
