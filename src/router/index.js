@@ -5,6 +5,7 @@ import HelloWorld from "@/components/HelloWorld.vue"
 import index from "@/index.vue"
 import ChooseEntrance from "@/pages/chooseEntrance"
 import Test from "@/pages/chooseEntrance/test"
+import SonTest from "@/pages/SonTest"
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,12 @@ const routes = [
         path: '/test',
         name: 'test',
         component: Test,
+        props: (route) => ({ query: route.query.type })
+      },
+      {
+        path: '/sontest',
+        name: 'sontest',
+        component: SonTest,
         props: (route) => ({ query: route.query.type })
       },
     ],
